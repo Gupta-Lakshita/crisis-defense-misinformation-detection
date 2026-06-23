@@ -1,0 +1,46 @@
+"""Basic tests for dataset loading and benchmark construction."""
+import sys, os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+
+import pandas as pd
+import pytest
+from src.evaluate import compute_metrics
+import numpy as np
+
+
+def test_compute_metrics_perfect():
+    y = np.array([0, 0, 1, 1])
+    m = compute_metrics(y, y)
+    assert m["accuracy"] == 100.0
+    assert m["macro_f1"] == 100.0
+
+
+def test_compute_metrics_random():
+    np.random.seed(42)
+    y_true = np.random.randint(0, 2, 100)
+    y_pred = np.random.randint(0, 2, 100)
+    m = compute_metrics(y_true, y_pred)
+    assert 0 <= m["macro_f1"] <= 100
+    assert 0 <= m["accuracy"] <= 100
+
+
+def test_benchmark_csv_exists():
+    path = os.path.join(os.path.dirname(__file__), '..', 'data',
+                        'crisis_defense_benchmark_v2.csv')
+    assert os.path.exists(path), "Benchmark CSV not found"
+    df = pd.read_csv(path)
+    assert len(df) > 2000
+    assert "text" in df.columns
+    assert "label" in df.columns
+    assert "source" in df.columns
+    assert "crisis_type" in df.columns
+    assert set(df["label"].unique()) == {0, 1}
+
+
+def test_benchmark_balance():
+    path = os.path.join(os.path.dirname(__file__), '..', 'data',
+                        'crisis_defense_benchmark_v2.csv')
+    df = pd.read_csv(path)
+    counts = df["label"].value_counts()
+    ratio = counts.min() / counts.max()
+    assert ratio >= 0.7, f"Classes too imbalanced: {dict(counts)}"

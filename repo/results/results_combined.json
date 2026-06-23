@@ -1,0 +1,72 @@
+{
+  "TF-IDF + Logistic Regression": {
+    "accuracy": 69.69,
+    "macro_precision": 69.67,
+    "macro_recall": 69.56,
+    "macro_f1": 69.58,
+    "fake_f1": 71.38,
+    "real_f1": 67.78,
+    "roc_auc": 77.51
+  },
+  "TF-IDF + Linear SVM": {
+    "accuracy": 71.65,
+    "macro_precision": 71.66,
+    "macro_recall": 71.53,
+    "macro_f1": 71.55,
+    "fake_f1": 73.23,
+    "real_f1": 69.87,
+    "roc_auc": "N/A"
+  },
+  "TF-IDF + Random Forest": {
+    "accuracy": 65.75,
+    "macro_precision": 65.7,
+    "macro_recall": 65.68,
+    "macro_f1": 65.68,
+    "fake_f1": 67.17,
+    "real_f1": 64.2,
+    "roc_auc": 75.34
+  },
+  "TF-IDF + Gradient Boosting": {
+    "accuracy": 66.54,
+    "macro_precision": 66.54,
+    "macro_recall": 66.56,
+    "macro_f1": 66.53,
+    "fake_f1": 67.05,
+    "real_f1": 66.0,
+    "roc_auc": 73.49
+  },
+  "per_source": {
+    "FakeNewsNet-PolitiFact": {
+      "n": 152,
+      "precision": 81.7,
+      "recall": 80.12,
+      "f1": 79.98
+    },
+    "CoAID": {
+      "n": 115,
+      "precision": 84.25,
+      "recall": 84.25,
+      "f1": 83.48
+    },
+    "LIAR": {
+      "n": 241,
+      "precision": 60.56,
+      "recall": 60.5,
+      "f1": 60.48
+    }
+  },
+  "per_crisis_type": {
+    "political_defense": {
+      "n": 393,
+      "precision": 68.41,
+      "recall": 68.08,
+      "f1": 68.01
+    },
+    "health_crisis": {
+      "n": 115,
+      "precision": 84.25,
+      "recall": 84.25,
+      "f1": 83.48
+    }
+  }
+}
