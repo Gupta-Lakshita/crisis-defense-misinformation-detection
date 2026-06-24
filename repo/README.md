@@ -135,3 +135,17 @@ python scripts/run_experiments.py
 ## License
 
 Code: MIT. Data subject to original dataset licenses.
+
+---
+
+## User Study (n=7)
+
+Evaluators rated SHAP token-level explanations on three criteria for crisis decision-making.
+
+| Question | Mean/5 | SD | % Rating ≥ 3 |
+|---|---|---|---|
+| Prediction makes sense given highlighted words | 2.93 | 0.73 | 71.4% |
+| Words relevant to detecting fake crisis content | 2.36 | 1.38 | 28.6% |
+| **Would trust for crisis decision-making** | **1.64** | **0.94** | **28.6%** |
+
+HEMT-Fake reports 82% of explanations rated "highly meaningful" by journalists on general-domain fake news. Our crisis-context trust rate (28.6%) is 53 percentage points lower — validating the need for crisis-specific explainability design.
