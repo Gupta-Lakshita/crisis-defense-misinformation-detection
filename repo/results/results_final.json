@@ -1,0 +1,106 @@
+{
+  "all_models": {
+    "TF-IDF + LR": {
+      "accuracy": 69.7,
+      "macro_precision": 69.7,
+      "macro_recall": 69.6,
+      "macro_f1": 69.6,
+      "fake_f1": 69.5,
+      "real_f1": 69.7,
+      "roc_auc": 77.5
+    },
+    "TF-IDF + SVM": {
+      "accuracy": 71.7,
+      "macro_precision": 71.7,
+      "macro_recall": 71.5,
+      "macro_f1": 71.55,
+      "fake_f1": 71.3,
+      "real_f1": 71.8,
+      "roc_auc": null
+    },
+    "TF-IDF + RF": {
+      "accuracy": 65.7,
+      "macro_precision": 65.7,
+      "macro_recall": 65.7,
+      "macro_f1": 65.7,
+      "fake_f1": 65.5,
+      "real_f1": 65.9,
+      "roc_auc": 75.3
+    },
+    "TF-IDF + GBM": {
+      "accuracy": 66.5,
+      "macro_precision": 66.5,
+      "macro_recall": 66.6,
+      "macro_f1": 66.5,
+      "fake_f1": 66.3,
+      "real_f1": 66.7,
+      "roc_auc": 73.5
+    },
+    "XLM-R Zero-Shot": {
+      "accuracy": 51.77,
+      "macro_precision": 25.89,
+      "macro_recall": 50.0,
+      "macro_f1": 34.11,
+      "fake_f1": 0.0,
+      "real_f1": 67.6,
+      "roc_auc": 52.95
+    },
+    "XLM-R Fine-Tuned": {
+      "accuracy": 69.88,
+      "macro_precision": 69.85,
+      "macro_recall": 69.8,
+      "macro_f1": 69.81,
+      "fake_f1": 69.8,
+      "real_f1": 69.8,
+      "roc_auc": 78.39
+    }
+  },
+  "per_source": {
+    "CoAID (Health Crisis)": {
+      "TF-IDF + SVM": {
+        "f1": 83.5,
+        "precision": 84.2,
+        "recall": 84.2
+      },
+      "XLM-R Fine-Tuned": {
+        "f1": 83.43,
+        "precision": 83.44,
+        "recall": 83.75
+      }
+    },
+    "FakeNewsNet-PolitiFact": {
+      "TF-IDF + SVM": {
+        "f1": 80.0,
+        "precision": 81.7,
+        "recall": 80.1
+      },
+      "XLM-R Fine-Tuned": {
+        "f1": 81.95,
+        "precision": 83.99,
+        "recall": 82.09
+      }
+    },
+    "LIAR (Political)": {
+      "TF-IDF + SVM": {
+        "f1": 60.5,
+        "precision": 60.6,
+        "recall": 60.5
+      },
+      "XLM-R Fine-Tuned": {
+        "f1": 55.6,
+        "precision": 55.63,
+        "recall": 55.63
+      }
+    }
+  },
+  "per_crisis_type": {
+    "Health Crisis": {
+      "TF-IDF + SVM": 83.5,
+      "XLM-R Fine-Tuned": 83.43
+    },
+    "Political / Defense": {
+      "TF-IDF + SVM": 68.0,
+      "XLM-R Fine-Tuned": 65.82
+    }
+  }
+}
