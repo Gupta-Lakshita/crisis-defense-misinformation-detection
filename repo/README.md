@@ -4,7 +4,7 @@ A benchmark study for detecting misinformation in crisis and defense scenarios a
 
 **Paper:** *Misinformation Detection in Crisis and Defense Scenarios: A Benchmark Study with Cross-Domain Evaluation and Explainability Analysis* _(under review)_
 
-![Tests](https://github.com/YOUR-USERNAME/crisis-defense-misinformation-detection/actions/workflows/tests.yml/badge.svg)
+![Tests](https://github.com/Gupta-Lakshita/crisis-defense-misinformation-detection/actions/workflows/tests.yml/badge.svg)
 
 ---
 
@@ -106,7 +106,7 @@ crisis-defense-misinformation-detection/
 ## Reproducing Results
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/crisis-defense-misinformation-detection
+git clone https://github.com/Gupta-Lakshita/crisis-defense-misinformation-detection
 cd crisis-defense-misinformation-detection
 pip install -r requirements.txt
 
