@@ -5,7 +5,7 @@ XLM-RoBERTa Fine-Tuning: Crisis & Defense Misinformation Detection
 
 HOW TO RUN ON KAGGLE:
 1. Create new Kaggle notebook (GPU T4 x2, or P100)
-2. Upload crisis_defense_benchmark_v2.csv as a Kaggle Dataset
+2. Upload crisis_defense_benchmark_v4.csv as a Kaggle Dataset
 3. Paste this entire script into a code cell
 4. Update DATA_PATH below to match your dataset path
 5. Run All -- takes ~25-35 minutes on free T4
@@ -37,7 +37,7 @@ from sklearn.metrics import precision_recall_fscore_support, roc_auc_score, accu
 warnings.filterwarnings('ignore')
 
 # ── CONFIG — update DATA_PATH to your file ────────────────────────────
-DATA_PATH  = "/kaggle/input/YOUR-DATASET-NAME/crisis_defense_benchmark_v2.csv"
+DATA_PATH  = "/kaggle/input/YOUR-DATASET-NAME/crisis_defense_benchmark_v4.csv"
 MODEL_NAME = "xlm-roberta-base"   # 278M params, fits on free T4
 MAX_LEN    = 128                  # shorter = faster; 128 is fine for short news text
 BATCH_SIZE = 32
