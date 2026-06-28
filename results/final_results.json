@@ -1,0 +1,65 @@
+{
+  "benchmark": {
+    "version": "v4",
+    "total_samples": 14971,
+    "benchmark_samples": 8666,
+    "general_domain_samples": 6305,
+    "train_samples": 6933,
+    "test_samples": 1733,
+    "datasets": {
+      "CoAID": {"n": 666, "crisis_type": "health_crisis", "test_n": 138},
+      "COVID-Constraint-Twitter": {"n": 2400, "crisis_type": "health_crisis", "test_n": 484},
+      "LIAR-PLUS": {"n": 2400, "crisis_type": "political_defense", "test_n": 493},
+      "FakeNewsNet-PolitiFact": {"n": 800, "crisis_type": "political_defense", "test_n": 153},
+      "FakeOrReal-News-balanced": {"n": 2400, "crisis_type": "general_political", "test_n": 466},
+      "FakeOrReal-News-full": {"n": 6305, "role": "cross_domain_source_only"}
+    }
+  },
+  "baseline_results": {
+    "TF-IDF + Logistic Regression": {
+      "accuracy": 0.7762, "precision": 0.7762, "recall": 0.7762, "macro_f1": 0.7762
+    },
+    "TF-IDF + Linear SVM": {
+      "accuracy": 0.7722, "precision": 0.7721, "recall": 0.7722, "macro_f1": 0.7721
+    },
+    "TF-IDF + Random Forest": {
+      "accuracy": 0.7318, "precision": 0.7320, "recall": 0.7318, "macro_f1": 0.7317
+    },
+    "TF-IDF + Gradient Boosting": {
+      "accuracy": 0.7482, "precision": 0.7485, "recall": 0.7482, "macro_f1": 0.7481
+    }
+  },
+  "xlmr_results": {
+    "zero_shot": {
+      "accuracy": 0.5000, "precision": 0.2500, "recall": 0.5000,
+      "macro_f1": 0.3333, "roc_auc": 0.4723
+    },
+    "epoch_1": {"val_accuracy": 0.7880, "val_macro_f1": 0.7846, "val_roc_auc": 0.9012},
+    "epoch_2": {"val_accuracy": 0.8080, "val_macro_f1": 0.8052, "val_roc_auc": 0.9309},
+    "epoch_3_best": {
+      "val_accuracy": 0.8200, "val_macro_f1": 0.8185, "val_roc_auc": 0.9360,
+      "test_accuracy": 0.8178, "test_precision": 0.8230,
+      "test_recall": 0.8178, "test_macro_f1": 0.8170, "test_roc_auc": 0.9204,
+      "zero_shot_to_finetuned_gain_pp": 48.37
+    },
+    "training_config": {
+      "model": "xlm-roberta-base",
+      "epochs": 3, "lr": 2e-5, "batch_size": 32,
+      "weight_decay": 0.01, "warmup_ratio": 0.1, "max_seq_len": 128,
+      "optimizer": "AdamW", "hardware": "Kaggle T4 GPU"
+    }
+  },
+  "per_dataset_results": {
+    "FakeOrReal-News": {"svm_f1": 0.852, "xlmr_f1": 0.9569, "test_n": 466},
+    "CoAID": {"svm_f1": 0.884, "xlmr_f1": 0.9268, "test_n": 138},
+    "COVID-Constraint-Twitter": {"svm_f1": 0.890, "xlmr_f1": 0.9050, "test_n": 484},
+    "FakeNewsNet-PolitiFact": {"svm_f1": 0.748, "xlmr_f1": 0.8359, "test_n": 153},
+    "LIAR-PLUS": {"svm_f1": 0.553, "xlmr_f1": 0.5533, "test_n": 493}
+  },
+  "per_crisis_type_results": {
+    "general_political": {"svm_f1": 0.852, "xlmr_f1": 0.9569, "test_n": 466},
+    "health_crisis": {"svm_f1": 0.889, "xlmr_f1": 0.9099, "test_n": 622},
+    "political_defense": {"svm_f1": 0.602, "xlmr_f1": 0.6246, "test_n": 646},
+    "health_vs_political_gap_pp": 28.53
+  }
+}

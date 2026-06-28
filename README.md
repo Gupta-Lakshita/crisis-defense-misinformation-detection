@@ -1,99 +1,85 @@
-# Crisis & Defense Misinformation Detection
-
-A benchmark study evaluating misinformation detection across crisis and defense scenarios. Uses 14,971 samples from six datasets, with cross-domain transfer experiments and SHAP explainability analysis.
-
-**Paper:** *Misinformation Detection in Crisis and Defense Scenarios: A Benchmark Study with Cross-Domain Evaluation and Explainability Analysis*
-
-**Author:** Gupta-Lakshita | [GitHub](https://github.com/Gupta-Lakshita/crisis-defense-misinformation-detection)
+# Misinformation Detection in Crisis and Defense Scenarios
 
 ![Tests](https://github.com/Gupta-Lakshita/crisis-defense-misinformation-detection/actions/workflows/tests.yml/badge.svg)
 
-> **Note on badge:** The badge activates after the first push to `main`. If it shows "not found", push the repo and wait ~2 minutes for the workflow to complete.
+**A benchmark study with cross-domain evaluation and explainability analysis.**
+
+*Under review. Code, data, and results are publicly available for reproducibility.*
 
 ---
 
 ## Key Findings
 
-**1. General-domain models collapse on crisis content.**
-A model trained on 6,305 general political news samples scores 39.11% Macro-F1 on COVID-19 health crisis tweets — 11 points below random chance. Crisis-domain adaptation recovers up to 50 percentage points.
-
-**2. Health crisis and political defense are different problems.**
-The same crisis-adapted model scores 90.99% F1 on health crisis content but only 62.46% on political disinformation — a 28.5-point gap that holds across both TF-IDF and transformer model families.
-
-**3. Transformers need enough in-domain data.**
-XLM-RoBERTa zero-shot scores 33.33% Macro-F1. Fine-tuning on 8,666 crisis-specific samples brings this to 81.70%, surpassing all TF-IDF baselines (+4.1pp). The gap between zero-shot and fine-tuned is 48.4 percentage points.
-
-**4. SHAP explanations do not transfer to crisis decision-makers.**
-83.3% of evaluators found the model predictions plausible. Only 25.0% found the SHAP explanation words meaningful, and 16.7% would trust them for a crisis decision. This 57-point drop from the 82% meaningfulness rating reported for journalist evaluators in HEMT-Fake (Jadhav et al., 2025) confirms that explainability outputs need calibration for operational crisis contexts.
-
----
-
-## Study Design
-
-| Component | Details |
+| Finding | Result |
 |---|---|
-| Crisis benchmark | 8,666 samples — 5 datasets |
-| General domain (cross-domain only) | 6,305 samples — FakeOrReal-News |
-| **Total samples in study** | **14,971 across 6 datasets** |
-| Crisis types covered | Health crisis (COVID-19) + Political / defense |
-| Models evaluated | TF-IDF × 4, XLM-R zero-shot, XLM-R fine-tuned |
-| Explainability | SHAP token attribution + user study (n=12) |
+| General-domain model on COVID-19 health crisis content | **39–42% Macro-F1** (below random chance) |
+| Crisis-domain fine-tuning recovery | **+50pp** on health crisis content |
+| Health crisis detection (XLM-R fine-tuned) | **90.99% Macro-F1** |
+| Political defense detection (XLM-R fine-tuned) | **62.46% Macro-F1** |
+| Health crisis vs political defense gap | **28.5pp** (holds across both model families) |
+| XLM-R zero-shot to fine-tuned gain | **+48.4pp** |
+| SHAP explanations found meaningful by crisis evaluators (Q2) | **53.3%** (n=30) |
+| SHAP explanations trusted for crisis decisions (Q3) | **6.7%** (n=30) |
 
 ---
 
-## Full Results
+## Dataset
 
-### All Models on Crisis Benchmark (n=1,733 test)
-
-| Model | Accuracy | Precision | Recall | Macro-F1 | ROC-AUC |
-|---|---|---|---|---|---|
-| TF-IDF + Logistic Regression | 77.62% | 77.62% | 77.62% | 77.62% | — |
-| TF-IDF + Linear SVM | 77.22% | 77.21% | 77.22% | 77.21% | — |
-| XLM-R Zero-Shot | 50.00% | 25.00% | 50.00% | 33.33% | 47.23% |
-| **XLM-R Fine-Tuned (3 epochs)** | **81.78%** | **82.30%** | **81.78%** | **81.70%** | **92.04%** |
-
-### Per-Dataset Breakdown
-
-| Dataset | Domain | SVM F1 | XLM-R F1 | n (test) |
-|---|---|---|---|---|
-| FakeOrReal-News | General Political | 85.2% | 95.69% | 466 |
-| CoAID | Health Crisis (News) | 88.4% | 92.68% | 138 |
-| COVID-Constraint-Twitter | Health Crisis (Social Media) | 89.0% | 90.50% | 484 |
-| FakeNewsNet-PolitiFact | Political / Defense | 74.8% | 83.59% | 153 |
-| LIAR-PLUS | Political / Defense | 55.3% | 55.33% | 493 |
-
-### Cross-Domain Transfer
-
-| Dataset | Domain | Crisis-Adapted | General-Domain | Gain |
-|---|---|---|---|---|
-| FakeOrReal-News | General Political | 85.2% | 99.36% | N/A (own domain) |
-| CoAID | Health Crisis (News) | 88.4% | 41.98% | +46.4pp |
-| COVID-Constraint-Twitter | Health Crisis (Social Media) | 89.0% | **39.11%** | +49.9pp |
-| FakeNewsNet-PolitiFact | Political / Defense | 74.8% | 59.89% | +14.9pp |
-| LIAR-PLUS | Political / Defense | 55.3% | 49.33% | +5.9pp |
-
-### User Study (n=12, SHAP Explanations)
-
-| Question | Mean | % Adequate (≥3) |
-|---|---|---|
-| Q1 — Prediction plausibility | 3.00 / 5.0 | 83.3% |
-| Q2 — Explanation meaningfulness | 2.17 / 5.0 | 25.0% |
-| Q3 — Crisis trustworthiness | 1.83 / 5.0 | 16.7% |
-
----
-
-## Datasets
+14,971 total samples across six publicly available datasets.
 
 | Source | Crisis Type | Samples | Role |
 |---|---|---|---|
-| [CoAID](https://github.com/cuilimeng/CoAID) | Health Crisis — COVID-19 News | 666 | Crisis benchmark |
-| [COVID-Constraint-Twitter](https://github.com/diptamath/covid_fake_news) | Health Crisis — COVID-19 Social Media | 2,400 | Crisis benchmark |
-| [LIAR-PLUS](https://github.com/Tariq60/LIAR-PLUS) | Political / Government | 2,400 | Crisis benchmark |
-| [FakeNewsNet-PolitiFact](https://github.com/KaiDMML/FakeNewsNet) | Political / Defense | 800 | Crisis benchmark |
-| [FakeOrReal-News](https://github.com/lutzhamel/fake-news) | General Political News | 6,305 | Cross-domain source |
-| **Total** | | **14,971** | |
+| CoAID | Health Crisis (COVID-19 news) | 666 | Crisis benchmark |
+| COVID-Constraint-Twitter | Health Crisis (social media) | 2,400 | Crisis benchmark |
+| LIAR-PLUS | Political / Government | 2,400 | Crisis benchmark |
+| FakeNewsNet-PolitiFact | Political / Defense | 800 | Crisis benchmark |
+| FakeOrReal-News (balanced) | General Political News | 2,400 | Benchmark + cross-domain |
+| FakeOrReal-News (full) | General Political News | 6,305 | Cross-domain source only |
 
-Both benchmark CSVs are included in `data/`.
+See [`data/README.md`](data/README.md) for download instructions.
+
+---
+
+## Models
+
+Four TF-IDF baselines + XLM-RoBERTa (`xlm-roberta-base`, 278M params).
+
+| Model | Macro-F1 | ROC-AUC |
+|---|---|---|
+| TF-IDF + Logistic Regression | 77.62% | — |
+| TF-IDF + Linear SVM | 77.21% | — |
+| TF-IDF + Random Forest | 73.17% | — |
+| TF-IDF + Gradient Boosting | 74.81% | — |
+| XLM-R Zero-Shot | 33.33% | 47.23% |
+| **XLM-R Fine-Tuned (3 epochs)** | **81.70%** | **92.04%** |
+
+XLM-R fine-tuning: AdamW, lr=2e-5, weight_decay=0.01, batch=32, max_len=128, 3 epochs on Kaggle T4 GPU (~55 min total).
+
+---
+
+## Explainability and User Study
+
+SHAP LinearExplainer applied to TF-IDF + LR model (200 background samples).
+
+User study with **n=30 participants**, the majority from crisis-relevant disciplines (public health, journalism and media studies, policy and security studies, emergency management), with a smaller number from adjacent technical and scientific backgrounds.
+
+| Question | Mean / 5.0 | SD | Adequate (≥3) |
+|---|---|---|---|
+| Q1: Prediction plausibility | 3.52 | 0.66 | 90.0% |
+| Q2: Explanation meaningfulness | 2.72 | 0.85 | 53.3% |
+| Q3: Crisis trustworthiness | 1.93 | 0.65 | 6.7% |
+
+Pearson r(Q2, Q3) = 0.603 (p<0.001). Cohen's kappa (binary adequacy) = -0.008.
+15 of 16 participants who rated Q2 adequate did not rate Q3 adequate.
+
+---
+
+## Research Gaps Addressed
+
+**RG1:** Cross-domain transfer from general political news to crisis content had not been quantified.
+**RG2:** Health crisis and political defense detection had not been compared as separate classification problems.
+**RG3:** General-purpose multilingual models had not been tested against a zero-shot crisis baseline.
+**RG4:** SHAP explanations had been validated with journalists but not with crisis decision-makers.
 
 ---
 
@@ -102,65 +88,85 @@ Both benchmark CSVs are included in `data/`.
 ```
 crisis-defense-misinformation-detection/
 ├── src/
-│   ├── __init__.py
-│   ├── dataset.py          # Data loading and preprocessing
-│   ├── evaluate.py         # Evaluation metrics
-│   └── explain.py          # SHAP explainability
+│   ├── preprocessing.py      # Dataset loading, cleaning, benchmark construction
+│   ├── baselines.py          # TF-IDF models + SHAP analysis
+│   ├── xlmr_finetune.py      # XLM-RoBERTa fine-tuning (Kaggle GPU)
+│   └── cross_domain.py       # Cross-domain transfer experiment
 ├── scripts/
-│   ├── build_dataset.py    # Download and merge source datasets
-│   └── run_experiments.py  # Full baseline + cross-domain pipeline
-├── notebooks/
-│   └── kaggle_xlmr.py      # XLM-RoBERTa fine-tuning (run on Kaggle T4)
+│   └── generate_figures.py   # Regenerate all 7 paper figures
 ├── data/
-│   ├── crisis_defense_benchmark_v2.csv   (original 3-dataset, 2,537 samples)
-│   └── crisis_defense_benchmark_v4.csv   (expanded 5-dataset, 8,666 samples)
+│   ├── README.md             # Dataset download instructions
+│   └── user_study_n30.csv    # User study Likert ratings (n=30, anonymised)
 ├── results/
-│   ├── figures/            (28 paper-ready figures and tables)
-│   ├── final_study_results.json
-│   └── cross_domain_results.json
+│   ├── final_results.json         # All model results
+│   ├── cross_domain_results.json  # Cross-domain transfer results
+│   ├── user_study_results.json    # User study statistics
+│   └── figures/                   # 7 paper figures (PNG, 180 DPI)
+│       ├── fig1_dataset.png
+│       ├── fig2_class_dist.png
+│       ├── fig3_training.png
+│       ├── fig4_per_dataset.png
+│       ├── fig5_crisis_gap.png
+│       ├── fig6_crossdomain.png
+│       └── fig7_userstudy.png
 ├── tests/
-│   └── test_dataset.py
-├── .github/
-│   └── workflows/
-│       └── tests.yml       (runs on every push; badge activates after first run)
+│   └── test_results.py       # 21 tests — all passing
+├── .github/workflows/
+│   └── tests.yml             # CI: runs on every push to main
 └── requirements.txt
 ```
 
 ---
 
-## Reproducing Results
+## Quickstart
 
 ```bash
 git clone https://github.com/Gupta-Lakshita/crisis-defense-misinformation-detection
 cd crisis-defense-misinformation-detection
 pip install -r requirements.txt
 
-# Baseline + cross-domain experiments (CPU only, ~10 min)
-python scripts/run_experiments.py
+# After placing raw datasets in data/raw/:
+python src/preprocessing.py
 
-# XLM-R fine-tuning (needs GPU — use Kaggle free T4)
-# 1. Upload data/crisis_defense_benchmark_v4.csv to Kaggle as a dataset
-# 2. Create new Kaggle notebook with GPU T4 enabled
-# 3. Paste notebooks/kaggle_xlmr.py into a code cell
-# 4. Update DATA_PATH to your dataset name
-# 5. Run All (~30 min)
+# Run TF-IDF baselines + SHAP
+python src/baselines.py --data data/crisis_defense_benchmark_v4.csv
+
+# Cross-domain experiment
+python src/cross_domain.py \
+  --general_data data/raw/fakeorreal/fake_or_real_news.csv \
+  --crisis_test  data/crisis_defense_benchmark_v4.csv
+
+# Regenerate figures
+python scripts/generate_figures.py
+
+# Run tests
+pytest tests/ -v
 ```
+
+For XLM-R fine-tuning, upload `crisis_defense_benchmark_v4.csv` to Kaggle and run `src/xlmr_finetune.py` on a T4 GPU notebook.
 
 ---
 
 ## Citation
 
-```bibtex
-@article{guptalakshita2025crisis,
-  title   = {Misinformation Detection in Crisis and Defense Scenarios:
-             A Benchmark Study with Cross-Domain Evaluation and Explainability Analysis},
-  author  = {Gupta-Lakshita},
-  journal = {Under Review},
-  year    = {2025},
-  url     = {https://github.com/Gupta-Lakshita/crisis-defense-misinformation-detection}
-}
+If you use this benchmark or code, please cite:
+
+```
+Gupta-Lakshita (2025). Misinformation Detection in Crisis and Defense Scenarios:
+A Benchmark Study with Cross-Domain Evaluation and Explainability Analysis.
+Under review. github.com/Gupta-Lakshita/crisis-defense-misinformation-detection
 ```
 
-## License
+---
 
-Code: MIT License. Data files subject to original dataset licenses — CoAID (CC BY 4.0), LIAR-PLUS (research use), FakeNewsNet (research use), COVID-Constraint (research use), FakeOrReal-News (MIT).
+## References
+
+- Jadhav et al. (2025) HEMT-Fake. *Frontiers in Artificial Intelligence* 8:1690616.
+- Kukkar and Kaur (2025). *Expert Systems with Applications* 281:127751.
+- Nwaiwu et al. (2025) X-FRAME. *Frontiers in Artificial Intelligence* 8:1523102.
+- Conneau et al. (2020) XLM-RoBERTa. *ACL 2020*, 8440–8451.
+- Cui and Lee (2020) CoAID. arXiv:2006.00885.
+- Patwa et al. (2021) COVID-Constraint. *AAAI CONSTRAINT Workshop*, 21–29.
+- Wang (2017) LIAR. *ACL 2017*, 422–426.
+- Shu et al. (2020) FakeNewsNet. *Big Data* 8(3):171–188.
+- Tikanmäki and Ruoslahti (2024). *Journal of Military Studies*. doi:10.2478/jms-2024-0009.

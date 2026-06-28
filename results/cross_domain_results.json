@@ -1,66 +1,34 @@
 {
-  "condition_A_crisis_adapted": {
-    "macro_f1": 71.55,
-    "accuracy": 71.65,
-    "precision": 71.66,
-    "recall": 71.53,
-    "per_source": {
-      "FakeNewsNet-PolitiFact": {
-        "f1": 79.98,
-        "n": 152
-      },
-      "CoAID": {
-        "f1": 83.48,
-        "n": 115
-      },
-      "LIAR": {
-        "f1": 60.48,
-        "n": 241
-      }
+  "experiment": "cross_domain_transfer",
+  "description": "General-domain SVM trained on FakeOrReal-News (n=5068) evaluated on crisis benchmark test set (n=1733). No crisis-domain exposure during training.",
+  "general_domain_train_n": 5068,
+  "crisis_test_n": 1733,
+  "results": {
+    "FakeOrReal-News": {
+      "crisis_adapted_svm_f1": 0.852,
+      "general_domain_svm_f1": 0.9936,
+      "note": "own domain — not a transfer result"
     },
-    "per_type": {
-      "political_defense": {
-        "f1": 68.01,
-        "n": 393
-      },
-      "health_crisis": {
-        "f1": 83.48,
-        "n": 115
-      }
+    "CoAID": {
+      "crisis_adapted_svm_f1": 0.884,
+      "general_domain_svm_f1": 0.4198,
+      "adaptation_gain_pp": 46.42
+    },
+    "COVID-Constraint-Twitter": {
+      "crisis_adapted_svm_f1": 0.890,
+      "general_domain_svm_f1": 0.3911,
+      "adaptation_gain_pp": 49.89
+    },
+    "FakeNewsNet-PolitiFact": {
+      "crisis_adapted_svm_f1": 0.748,
+      "general_domain_svm_f1": 0.5989,
+      "adaptation_gain_pp": 14.91
+    },
+    "LIAR-PLUS": {
+      "crisis_adapted_svm_f1": 0.553,
+      "general_domain_svm_f1": 0.4933,
+      "adaptation_gain_pp": 5.97
     }
   },
-  "condition_B_general_domain": {
-    "macro_f1": 57.03,
-    "accuracy": 58.07,
-    "precision": 58.21,
-    "recall": 57.59,
-    "per_source": {
-      "FakeNewsNet-PolitiFact": {
-        "f1": 62.67,
-        "n": 152
-      },
-      "CoAID": {
-        "f1": 45.46,
-        "n": 115
-      },
-      "LIAR": {
-        "f1": 57.99,
-        "n": 241
-      }
-    },
-    "per_type": {
-      "political_defense": {
-        "f1": 60.14,
-        "n": 393
-      },
-      "health_crisis": {
-        "f1": 45.46,
-        "n": 115
-      }
-    }
-  },
-  "adaptation_gain_overall": 14.52,
-  "crisis_benchmark_size": 2537,
-  "general_domain_size": 6335,
-  "total_samples_in_study": 8872
+  "key_finding": "General-domain model scores below random chance (39-42% F1) on health crisis content. Domain adaptation recovers up to 50 percentage points."
 }

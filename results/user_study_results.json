@@ -1,0 +1,40 @@
+{
+  "study": "SHAP Explanation Quality — Crisis Context Evaluators",
+  "n": 30,
+  "background": {
+    "crisis_relevant": 23,
+    "adjacent_technical": 7,
+    "disciplines": ["public_health", "journalism_media_studies", "policy_security_defense", "emergency_management", "computer_science_IT", "medical_sciences"]
+  },
+  "questions": {
+    "Q1": "Does the prediction make sense given the highlighted words?",
+    "Q2": "Are the highlighted words actually relevant to detecting fake crisis content?",
+    "Q3": "Would you trust this explanation when making a quick decision during an actual crisis?"
+  },
+  "results": {
+    "Q1_plausibility": {"mean": 3.52, "sd": 0.66, "adequate_n": 27, "adequate_pct": 90.0},
+    "Q2_meaningfulness": {"mean": 2.72, "sd": 0.85, "adequate_n": 16, "adequate_pct": 53.3},
+    "Q3_crisis_trust": {"mean": 1.93, "sd": 0.65, "adequate_n": 2, "adequate_pct": 6.7}
+  },
+  "statistics": {
+    "pearson_r_Q2_Q3": 0.603,
+    "pearson_p_value": 0.0004,
+    "cohen_kappa_Q2_Q3_binary": -0.008,
+    "q2_to_q3_gap_pp": 46.6,
+    "key_finding": "15 of 16 participants who rated Q2 adequate did not rate Q3 adequate. Understanding an explanation does not imply trusting it for crisis decisions."
+  },
+  "comparison_hemt_fake": {
+    "hemt_q2_journalist_adequate_pct": 82.0,
+    "this_study_q2_crisis_adequate_pct": 53.3,
+    "gap_pp": 28.7,
+    "note": "Same explanation method (SHAP), different evaluator profile. Gap reflects operational evidence requirements, not model quality."
+  },
+  "preliminary_n12_comparison": {
+    "n12_q1_adequate_pct": 83.3,
+    "n12_q2_adequate_pct": 25.0,
+    "n12_q3_adequate_pct": 16.7,
+    "n12_cohen_kappa": 0.250,
+    "n30_q2_to_q3_gap_pp": 46.6,
+    "n12_q2_to_q3_gap_pp": 8.3
+  }
+}
